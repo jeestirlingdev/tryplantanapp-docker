@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  web:
+    image: public.ecr.aws/plantanapp/tryplantanapp:win${windows_version}-${pa_version}
+    restart: always
+    isolation: 'process'
+    depends_on:
+      - mssql
+    volumes:
+      - "${site_folder_path}:C:/inetpub/wwwroot/"
+    ports:
+      - '${iis_port}:${iis_port}'
+    environment:
+      connection_string: ${base_connection}${sa_password}
+      iis_port: ${iis_port}
+    networks:
+      - appnet
+  mssql:
+    image: public.ecr.aws/plantanapp/tryplantanapp-sql2017:win${windows_version}-${pa_version}
+    isolation: 'process'
+    volumes:
+      - "${db_folder_path}:C:/dbFiles/"
+    ports:
+      - '${sql_port}:1433'
+    environment:
+      ACCEPT_EULA: 'Y'
+      sa_password: ${sa_password}
+      attach_dbs: ${attach_dbs}
+    networks:
+      - appnet
+networks:
+  appnet:
+    name: plantanappNetwork
