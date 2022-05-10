@@ -1,7 +1,7 @@
 # tryplantanapp
 
 ## Deploying App and SQL Express containers
-1. Clone https://github.com/dnnsharp/tryplantanapp on your local computer or server.
+1. Clone https://github.com/plantanapp/tryplantanapp-docker on your local computer or server.
 2. Go to the folder where you cloned the repository and open the **.env** file with a text editor.
    - For Windows 10 21H2 update, change the **windows_version** variable to look like `windows_version=21h2`.
    - For Windows Server 2019, change the **windows_version** variable to look like `windows_version=2019`
@@ -25,7 +25,7 @@
 	    volumes:
 	      - "${db_folder_path}:C:/dbFiles/"
 	    ports:
-	      - '1433:1433'
+	      - '${sql_port}:1433'
 	    environment:
 	      ACCEPT_EULA: 'Y'
 	      sa_password: ${sa_password}
