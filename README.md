@@ -1,5 +1,9 @@
 # tryplantanapp
 
+## Fork updates
+* remove SQL Server container to use remote SQL Server
+* change image to 21h2 (host is 22h2)
+
 ## Deploying App and SQL Express containers
 1. Clone https://github.com/plantanapp/tryplantanapp-docker on your local computer or server.
 2. Go to the folder where you cloned the repository and open the **.env** file with a text editor.

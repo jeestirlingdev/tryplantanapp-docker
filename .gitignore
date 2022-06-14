@@ -4,3 +4,4 @@
 /wwwroot
 /wwwroot/*
 /wwwroot/**
+.env
