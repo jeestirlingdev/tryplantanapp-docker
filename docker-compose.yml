@@ -2,11 +2,12 @@ version: '3.9'
 
 services:
   web:
-    image: public.ecr.aws/plantanapp/tryplantanapp:win${windows_version}-${pa_version}
+    # image: public.ecr.aws/plantanapp/tryplantanapp:win${windows_version}-${pa_version}
+    image: public.ecr.aws/plantanapp/tryplantanapp:win2022-1.18.3
     restart: always
     isolation: 'process'
-    # depends_on:
-    #   - mssql
+    depends_on:
+      - mssql
     volumes:
       - "${site_folder_path}:C:/inetpub/wwwroot/"
     ports:
@@ -16,19 +17,20 @@ services:
       iis_port: ${iis_port}
     networks:
       - appnet
-  # mssql:
-  #   image: public.ecr.aws/plantanapp/tryplantanapp-sql2017:win${windows_version}-${pa_version}
-  #   isolation: 'process'
-  #   volumes:
-  #     - "${db_folder_path}:C:/dbFiles/"
-  #   ports:
-  #     - '${sql_port}:1433'
-  #   environment:
-  #     ACCEPT_EULA: 'Y'
-  #     sa_password: ${sa_password}
-  #     attach_dbs: ${attach_dbs}
-  #   networks:
-  #     - appnet
+  mssql:
+    # image: public.ecr.aws/plantanapp/tryplantanapp-sql2017:win${windows_version}-${pa_version}
+    image: public.ecr.aws/plantanapp/tryplantanapp-sql2017:win2022-1.18.3
+    isolation: 'process'
+    volumes:
+      - "${db_folder_path}:C:/dbFiles/"
+    ports:
+      - '${sql_port}:1433'
+    environment:
+      ACCEPT_EULA: 'Y'
+      sa_password: ${sa_password}
+      attach_dbs: ${attach_dbs}
+    networks:
+      - appnet
 networks:
   appnet:
     name: plantanappNetwork
